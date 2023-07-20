@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" href="./style.css">
+   <script src="./script.js" defer></script>
+   <title>Etch-a-Sketch</title>
+</head>
+
+<body>
+   <div class="page">
+      <h1 class="fancy-underline fancy-underline1">Etch-a-Sketch</h1>
+      <main>
+         <div class="control-panel">
+            <input type="color" onchange="changeColor()" class="color-pick" id="color-input">
+
+            <div class="slider-container">
+               <label for="grid-value" class="grid-slider-label" id="grid-value-text">Grid size: 16 x 16</label>
+               <input name="grid-value" type="range" min="1" max="64" value="16" onchange="changeSketchArea()"
+                  class="slider" id="grid-value">
+            </div>
+
+            <div>
+               <button onclick="changeColor()" class="button" id="button">Pencil</button>
+            </div>
+
+            <div>
+               <button onclick="changeToEraser()" class="button" id="button">Eraser</button>
+            </div>
+
+            <div>
+               <button onclick="changeSketchArea()" class="button" id="button">Clear</button>
+            </div>
+         </div>
+
+         <div class="flex sketch-area not-draggable" id="sketch-area"></div>
+
+      </main>
+
+      <footer>
+         <a href="https://www.google.com">© Zied</a>
+      </footer>
+   </div>
+
+
+</body>
+
+</html>
