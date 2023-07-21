@@ -147,6 +147,8 @@ button:active {
     height: min(25rem, 70vw);
     display: grid;
     gap: 0;
+
+    touch-action: manipulation;
 }
 
 .sketch-area .pixel {
