@@ -2,9 +2,10 @@ const sketchArea = document.getElementById("sketch-area");
 const colorInput = document.getElementById("color-input");
 const gridValue = document.getElementById("grid-value");
 const gridValueText = document.getElementById("grid-value-text");
+const body = document.getElementById("body");
 
 let gridSize = 16;
-let color = "#000000";
+let color = "#24B4FF";
 let eraserColor = "#FFFFFF";
 let pencilColor = colorInput;
 let activePixel;
@@ -31,7 +32,7 @@ function changeSketchArea() {
     }
 }
 
-// Get active pixel 
+// Get active pixel Mouse
 sketchArea.onmouseenter = () => {
     const pixels = document.querySelectorAll(".pixel");
 
@@ -43,6 +44,7 @@ sketchArea.onmouseenter = () => {
         }, 0);
     }
 }
+
 
 // Detect if mouse click is down
 let mouseDown = false;
@@ -57,6 +59,15 @@ document.onmouseup = () => {
     mouseDown = false;
 }
 
+// Mobile 
+sketchArea.ontouchstart = () => {
+    body.classList.add('overflow-hidden');
+}
+
+document.ontouchend = () => {
+    body.classList.remove("overflow-hidden");
+}
+
 // Draw
 sketchArea.onmouseover = () => {
     Draw();
@@ -65,6 +76,7 @@ sketchArea.onmouseover = () => {
 function Draw() {
     if (mouseDown) {
         const pixels = document.querySelectorAll(".pixel");
+        console.log(activePixel);
 
         activePixel.style.backgroundColor = color;
     }

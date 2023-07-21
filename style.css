@@ -72,11 +72,10 @@ body {
     position: absolute;
     font-size: 14pt;
     top: 40%;
-    right: -150%;
+    right: -110%;
     transform: rotateZ(10deg);
-    content: "Desktop only currently. Sorry...";
+    content: "Works on mobile too!";
     text-decoration: underline 3px;
-
 }
 
 main {
@@ -142,8 +141,10 @@ button:active {
     box-shadow: var(--shadow-elevation-medium);
 
     border-radius: 0.5rem;
-    width: 25rem;
-    height: 25rem;
+    /* width: 25rem; */
+
+    width: min(25rem, 70vw);
+    height: min(25rem, 70vw);
     display: grid;
     gap: 0;
 }
@@ -164,6 +165,10 @@ button:active {
     -moz-user-select: none;
     -webkit-user-select: none;
     -ms-user-select: none;
+}
+
+.overflow-hidden {
+    overflow: hidden;
 }
 
 .color-pick {
@@ -376,4 +381,37 @@ a:hover:after {
 
 .fancy-underline1:after {
     background-image: url("./images/svgs/underline-2.svg")
+}
+
+@media only screen and (max-width: 768px) {
+    main {
+        flex-direction: column-reverse;
+    }
+
+    .control-panel {
+        margin-top: 4rem;
+    }
+
+    .page h1::before {
+        position: absolute;
+        font-size: 14pt;
+        top: 40%;
+        right: -150%;
+        transform: rotateZ(10deg);
+        content: "";
+        text-decoration: underline 3px;
+    }
+
+
+}
+
+@media only screen and (max-width: 425px) {
+    .color-pick::before {
+        content: "";
+    }
+
+    .color-pick::after {
+        content: "";
+        background-image: none;
+    }
 }
