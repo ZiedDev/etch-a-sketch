@@ -7,7 +7,7 @@ This took me longer than I thought but it is worth it at the end.
 I will try to add more features and fix some bugs (If there are some)
 
 ## Planned features
-- Add mobile support.
+- ✅ Add mobile support.
 - Add some small features here and there. (Like changing the cursor according to the user current tool.) 
 
 ## Contact me
