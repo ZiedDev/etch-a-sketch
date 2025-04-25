@@ -154,7 +154,7 @@ button:active {
     display: grid;
     gap: 0;
 
-    touch-action: manipulation;
+    touch-action: none;
 }
 
 .sketch-area .pixel {

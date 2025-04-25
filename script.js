@@ -66,12 +66,10 @@ document.addEventListener('mouseup', e => {
 
 // Mobile 
 sketchArea.addEventListener('touchstart', e => {
-    body.classList.add('overflow-hidden');
     pointerDown = true;
 })
 
 document.addEventListener('touchend', e => {
-    body.classList.remove("overflow-hidden");
     pointerDown = false;
 })
 
@@ -81,7 +79,9 @@ sketchArea.addEventListener('mouseover', e => {
 })
 
 sketchArea.addEventListener('touchmove', e => {
-    Draw(document.elementFromPoint(e.touches[0].clientX, e.touches[0].clientY));
+    if (document.elementFromPoint(e.touches[0].clientX, e.touches[0].clientY).classList.contains('pixel')) {
+        Draw(document.elementFromPoint(e.touches[0].clientX, e.touches[0].clientY));
+    }
 })
 
 function Draw(activePixel) {
