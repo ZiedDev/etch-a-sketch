@@ -56,6 +56,12 @@ body {
     text-shadow: 0.25rem 0.125rem 10px #0f3a4b;
 }
 
+body * {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+}
+
 .page {
     display: flex;
     justify-content: center;
@@ -161,7 +167,6 @@ button:active {
 }
 
 .not-draggable {
-    user-drag: none;
     -webkit-user-drag: none;
     user-select: none;
     -moz-user-select: none;

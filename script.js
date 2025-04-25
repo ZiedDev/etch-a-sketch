@@ -1,8 +1,12 @@
 const sketchArea = document.getElementById("sketch-area");
-const colorInput = document.getElementById("color-input");
 const gridValue = document.getElementById("grid-value");
 const gridValueText = document.getElementById("grid-value-text");
 const body = document.getElementById("body");
+
+const colorInput = document.getElementById('color-input');
+const pencilInput = document.getElementById('pencil');
+const eraserInput = document.getElementById('eraser');
+const clearInput = document.getElementById('clear');
 
 let gridSize = 16;
 let color = "#24B4FF";
@@ -11,15 +15,23 @@ let pencilColor = colorInput;
 let activePixel;
 
 gridValue.addEventListener("input", () => {
-    changeSketchArea();
+    changeSizeText(gridValue.value);
+});
+
+gridValue.addEventListener("change", () => {
+    let confirmClear = confirm('are you sure you want to clear the sketch board');
+
+    if (confirmClear) {
+        changeSketchArea();
+    }
+
+    changeSizeText(gridSize);
+    gridValue.value = gridSize;
 });
 
 function changeSketchArea() {
-    if (document.getElementById("grid-value").value != 0) {
-        gridSize = document.getElementById("grid-value").value;
-        gridValueText.textContent = `Grid size: ${gridSize} x ${gridSize}`
-        sketchArea.innerHTML = "";
-    }
+    gridSize = gridValue.value;
+    sketchArea.innerHTML = "";
 
     for (let i = 0; i < gridSize ** 2; i++) {
         sketchArea.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
@@ -32,52 +44,48 @@ function changeSketchArea() {
     }
 }
 
-// Get active pixel Mouse
-sketchArea.onmouseenter = () => {
-    const pixels = document.querySelectorAll(".pixel");
-
-    for (let i = 0; i < gridSize ** 2; i++) {
-        setTimeout(() => {
-            pixels[i].addEventListener("mouseover", () => {
-                activePixel = pixels[i];
-            });
-        }, 0);
+function changeSizeText(val) {
+    if (val != 0) {
+        gridValueText.textContent = `Grid size: ${val} x ${val}`
     }
 }
 
-
 // Detect if mouse click is down
-let mouseDown = false;
+let pointerDown = false;
 
-sketchArea.onmousedown = () => {
-    mouseDown = true
+sketchArea.addEventListener('mousedown', e => {
+    pointerDown = true
+
     // Draw first pixel when mouse clicked
-    Draw();
-}
+    Draw(e.target);
+})
 
-document.onmouseup = () => {
-    mouseDown = false;
-}
+document.addEventListener('mouseup', e => {
+    pointerDown = false;
+})
 
 // Mobile 
-sketchArea.ontouchstart = () => {
+sketchArea.addEventListener('touchstart', e => {
     body.classList.add('overflow-hidden');
-}
+    pointerDown = true;
+})
 
-document.ontouchend = () => {
+document.addEventListener('touchend', e => {
     body.classList.remove("overflow-hidden");
-}
+    pointerDown = false;
+})
 
 // Draw
-sketchArea.onmouseover = () => {
-    Draw();
-}
+sketchArea.addEventListener('mouseover', e => {
+    Draw(e.target);
+})
 
-function Draw() {
-    if (mouseDown) {
-        const pixels = document.querySelectorAll(".pixel");
-        console.log(activePixel);
+sketchArea.addEventListener('touchmove', e => {
+    Draw(document.elementFromPoint(e.touches[0].clientX, e.touches[0].clientY));
+})
 
+function Draw(activePixel) {
+    if (pointerDown) {
         activePixel.style.backgroundColor = color;
     }
 }
@@ -90,6 +98,17 @@ function changeColor() {
 function changeToEraser() {
     color = eraserColor;
 }
+
+colorInput.addEventListener('change', changeColor)
+pencilInput.addEventListener('click', changeColor)
+eraserInput.addEventListener('click', changeToEraser)
+clearInput.addEventListener('click', () => {
+    let confirmClear = confirm('are you sure you want to clear the sketch board');
+
+    if (confirmClear) {
+        changeSketchArea();
+    }
+})
 
 // When the page loads
 window.onload = () => {
